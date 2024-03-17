@@ -19,9 +19,12 @@ jobs:
           node-version: [18.x]
       steps:
       - uses: actions/checkout@v3
-      - name: npm install masto
+      - name: Setup environment
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: mkdir spaceship
+      - run: cd spaceship
+      - run: npm init es6 --yes
       - run: npm install masto
