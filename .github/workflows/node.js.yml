@@ -8,23 +8,21 @@ on:
     branches: [ "main" ]
 
 jobs:
-  deployment:
+  environment:
+    name: masto
+  build:
     runs-on: windows-latest
-    environment:
-      name: masto
-    build:
-      runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          node-version: [18.x]
-      steps:
-      - uses: actions/checkout@v3
-      - name: Setup environment
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: mkdir spaceship
-      - run: cd spaceship
-      - run: npm init es6 --yes
-      - run: npm install masto
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup environment
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: mkdir spaceship
+    - run: cd spaceship
+    - run: npm init es6 --yes
+    - run: npm install masto
